@@ -1,0 +1,20 @@
+{
+  "name": "eiusfugiat",
+  "description": "Coding standards and packages",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GarlandKohler/eiusfugiat.git"
+  },
+  "author": "TreAnderson",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=14",
+    "npm": ">=6"
+  },
+  "devDependencies": {
+    "lerna": "^3.22.1",
+    "prettier": "^2.1.1",
+    "rimraf": "^3.0.2"
+  },
+  "version": "1.0.0"
+}

@@ -1,0 +1,36 @@
+#!/usr/bin/env node
+
+const supportsColor = require('supports-color');
+const { _: [key, ...rest], ...flags } = require('yargs-parser')(process.argv.slice(2));
+
+const runScript = require('../lib');
+
+if (supportsColor.stdout) {
+	process.env.NPM_SCRIPTS_COLOR = 1;
+}
+
+if (flags.label) {
+	process.env.NPM_SCRIPTS_LABEL = 1;
+}
+
+if (flags.silent) {
+	process.env.NPM_SCRIPTS_SILENT = 1;
+}
+
+switch (true) {
+	case Boolean(flags.help):
+	case Boolean(flags.h):
+	case key === 'help':
+	case !key:
+		runScript.help();
+		break;
+	default:
+		runScript(key, rest, {
+			...flags,
+			// Read these from env so they are inherited by child processes
+			color: process.env.NPM_SCRIPTS_COLOR ? Boolean(process.env.NPM_SCRIPTS_COLOR) : undefined,
+			label: process.env.NPM_SCRIPTS_LABEL ? Boolean(process.env.NPM_SCRIPTS_LABEL) : undefined,
+			silent: process.env.NPM_SCRIPTS_LABEL ? Boolean(process.env.NPM_SCRIPTS_SILENT) : undefined
+		});
+		break;
+}
